@@ -1,6 +1,6 @@
 <h1>First of all</h1>
 
-<h2>Please make sure that you already install allennlp and related python packages. After that, u can just run these scripts.<h2>
+<h2>Please make sure that you already install allennlp and related python packages. After that, u can just run these scripts.</h2>
 
 allennlp train experiments/semeval4a_classifier.json -s ./tmp/semeval4a_output_dir --include-package my_project
 
