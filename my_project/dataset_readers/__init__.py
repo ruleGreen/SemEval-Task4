@@ -1,1 +1,2 @@
-from my_project.dataset_readers.semeval4_a import SemEvalDatasetReader
+from my_project.dataset_readers.semeval4_a import SemEvalADatasetReader
+from my_project.dataset_readers.semeval4_b import SemEvalBDatasetReader

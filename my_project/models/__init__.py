@@ -1,1 +1,2 @@
 from my_project.models.semeval4a_classifier import SenseClassifier
+from my_project.models.semeval4b_classifier import SenseBClassifier
