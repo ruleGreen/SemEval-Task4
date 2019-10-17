@@ -70,7 +70,7 @@ class SemEvalBDatasetReader(DatasetReader):
 if __name__ == "__main__":
     reader = SemEvalBDatasetReader()
 
-    reader.prepossing("../../datasets/taskB_trial_data.csv", "../../datasets/taskB_trial_answer.csv", \
-                      "../../datasets/taskB_trial_training.csv")
-    reader.read("../../datasets/taskB_trial_training.csv")
+    reader.prepossing("../../datasets/TrainingData/subtaskA_data_all.csv", "../../datasets/TrainingData/subtaskA_answers_all.csv", \
+                      "../../datasets/TrainingData/subtaskA_training.csv")
+    reader.read("../../datasets/TrainingData/subtaskA_training.csv")
 """
