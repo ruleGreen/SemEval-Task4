@@ -22,10 +22,6 @@ class Prepossessing:
             self.preC("./datasets/TrainingData/subtaskC_data_all.csv", "./datasets/TrainingData/subtaskC_answers_all.csv")
 
     def preA(self, input_file_path1, input_file_path2):
-        if os.path.exists("./datasets/TrainingData/subtaskA.csv"):
-            self.shuffle("./datasets/TrainingData/subtaskA.csv")
-            self.splitA("./datasets/TrainingData/subtaskA.csv", self.test_size)
-            return
         features = pd.read_csv(input_file_path1)
         answer = pd.read_csv(input_file_path2, header=None, names=["id", "label"])
         merged = features.merge(answer, on="id", how="outer")
@@ -34,10 +30,6 @@ class Prepossessing:
         self.splitA("./datasets/TrainingData/subtaskA.csv", self.test_size)
 
     def preB(self, input_file_path1, input_file_path2):
-        if os.path.exists("./datasets/TrainingData/subtaskB.csv"):
-            self.shuffle("./datasets/TrainingData/subtaskB.csv")
-            self.splitB("./datasets/TrainingData/subtaskB.csv", self.test_size)
-            return
         features = pd.read_csv(input_file_path1)
         answer = pd.read_csv(input_file_path2, header=None, names=["id", "label"])
         merged = features.merge(answer, on="id", how="outer")
@@ -46,16 +38,13 @@ class Prepossessing:
         self.splitB("./datasets/TrainingData/subtaskB.csv", self.test_size)
 
     def preC(self, input_file_path1, input_file_path2):
-        if os.path.exists("./datasets/TrainingData/subtaskC.csv"):
-            self.shuffle("./datasets/TrainingData/subtaskC.csv")
-            self.splitA("./datasets/TrainingData/subtaskC.csv", self.test_size)
-            return
         features = pd.read_csv(input_file_path1)
-        answer = pd.read_csv(input_file_path2, header=None, names=["id", "label"])
+        answer = pd.read_csv(input_file_path2, header=None, names=["id", "ref1", "ref2", "ref3"])
         merged = features.merge(answer, on="id", how="outer")
         merged.to_csv("./datasets/TrainingData/subtaskC.csv", index=False)
         self.shuffle("./datasets/TrainingData/subtaskC.csv")
-        self.splitC("./datasets/TrainingData/subtaskC.csv", self.test_size)
+        # the split of task c is different from task a and b
+        self.splitC("./datasets/TrainingData/subtaskC.csv")
 
     def shuffle(self, path):
         # shuffle the datasets with random seed
@@ -76,16 +65,23 @@ class Prepossessing:
         train.to_csv("datasets/TrainingData/subtaskB_training.csv", index=False)
         test.to_csv("datasets/TrainingData/subtaskB_test.csv", index=False)
 
-    def splitC(self, file_path, test_size):
+    def splitC(self, file_path):
         df = pd.read_csv(file_path)
-        train, test = train_test_split(df, test_size=test_size)
-        train.to_csv("datasets/TrainingData/subtaskC_training.csv", index=False)
-        test.to_csv("datasets/TrainingData/subtaskC_test.csv", index=False)
+        # to do dataframe for task c
+        ref1 = df.loc[:, ['id', 'FalseSent', 'ref1']]
+        ref2 = df.loc[:, ['id', 'FalseSent', 'ref2']]
+        ref3 = df.loc[:, ['id', 'FalseSent', 'ref3']]
+        ref1.columns = ['id', 'falsesent', 'ref']
+        ref2.columns = ['id', 'falsesent', 'ref']
+        ref3.columns = ['id', 'falsesent', 'ref']
+        res = pd.concat([ref1, ref2, ref3], axis = 0)
+        res.to_csv("datasets/TrainingData/subtaskC.csv", index=False)
+        
 
 
 if __name__ == "__main__":
     task = int(input("Please input datasets of which task you want to prepossessing:"))
     shuffle = int(input("Please input the random seed you want to shuffle data:"))
     seed = float(input("Please input the test_size(percent) you want to split train and test data:"))
-
+    
     reader = Prepossessing(task, shuffle, seed)

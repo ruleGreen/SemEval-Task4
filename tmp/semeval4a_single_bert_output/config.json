@@ -1,0 +1,83 @@
+{
+    "dataset_reader": {
+        "type": "semeval4_a_reader",
+        "token_indexers": {
+            "bert": {
+                "type": "pretrained_transformer",
+                "do_lowercase": false,
+                "model_name": "bert-base-cased"
+            }
+        }
+    },
+    "iterator": {
+        "type": "bucket",
+        "batch_size": 64,
+        "sorting_keys": [
+            [
+                "sent0",
+                "num_tokens"
+            ],
+            [
+                "sent1",
+                "num_tokens"
+            ]
+        ]
+    },
+    "model": {
+        "type": "a_classifier",
+        "classifier_feedforward": {
+            "activations": [
+                "relu",
+                "linear"
+            ],
+            "dropout": [
+                0.2,
+                0
+            ],
+            "hidden_dims": [
+                200,
+                2
+            ],
+            "input_dim": 400,
+            "num_layers": 2
+        },
+        "sent0_encoder": {
+            "type": "lstm",
+            "bidirectional": true,
+            "dropout": 0.2,
+            "hidden_size": 100,
+            "input_size": 1024,
+            "num_layers": 1
+        },
+        "sent1_encoder": {
+            "type": "lstm",
+            "bidirectional": true,
+            "dropout": 0.2,
+            "hidden_size": 100,
+            "input_size": 1024,
+            "num_layers": 1
+        },
+        "text_field_embedder": {
+            "token_embedders": {
+                "bert": {
+                    "type": "bert-pretrained",
+                    "pretrained_model": "bert-base-cased",
+                    "requires_grad": false,
+                    "top_layer_only": true
+                }
+            }
+        }
+    },
+    "train_data_path": "datasets/taskA_trial_training.csv",
+    "validation_data_path": "datasets/taskA_trial_validation.csv",
+    "trainer": {
+        "cuda_device": -1,
+        "grad_clipping": 5,
+        "num_epochs": 10,
+        "optimizer": {
+            "type": "adagrad"
+        },
+        "patience": 10,
+        "validation_metric": "+accuracy"
+    }
+}
