@@ -1,0 +1,7 @@
+./notebook/*
+./tmp/*
+
+**/*.local
+**/*.log
+**/*.th
+**/*.DS_Store

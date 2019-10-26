@@ -1,6 +1,8 @@
 from typing import Dict, Iterator
-import json
+
+import os
 import logging
+import pandas as pd
 
 from overrides import overrides
 
@@ -13,9 +15,8 @@ from allennlp.data.token_indexers import TokenIndexer, SingleIdTokenIndexer
 
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
 
-
 @DatasetReader.register("semeval4_a_reader")
-class SemEvalDatasetReader(DatasetReader):
+class SemEvalADatasetReader(DatasetReader):
     def __init__(self, tokenizer: Tokenizer = None, token_indexers: Dict[str, TokenIndexer] = None) -> None:
         super().__init__(lazy = False)
         self._tokenizer = tokenizer or WordTokenizer()
