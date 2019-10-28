@@ -1,0 +1,73 @@
+{
+    "dataset_reader": {
+        "type": "semeval4_c_reader",
+        "source_token_indexers": {
+            "tokens": {
+                "type": "single_id"
+            }
+        },
+        "source_tokenizer": {
+            "type": "word"
+        },
+        "target_token_indexers": {
+            "tokens": {
+                "type": "single_id",
+                "namespace": "target_tokens"
+            }
+        },
+        "target_tokenizer": {
+            "type": "character"
+        }
+    },
+    "iterator": {
+        "type": "bucket",
+        "batch_size": 32,
+        "sorting_keys": [
+            [
+                "source_tokens",
+                "num_tokens"
+            ]
+        ]
+    },
+    "model": {
+        "type": "simple_seq2seq",
+        "attention": {
+            "type": "linear",
+            "activation": "tanh",
+            "tensor_1_dim": 256,
+            "tensor_2_dim": 256
+        },
+        "beam_size": 8,
+        "encoder": {
+            "type": "stacked_self_attention",
+            "feedforward_hidden_dim": 128,
+            "hidden_dim": 256,
+            "input_dim": 256,
+            "num_attention_heads": 8,
+            "num_layers": 1,
+            "projection_dim": 128
+        },
+        "max_decoding_steps": 20,
+        "source_embedder": {
+            "type": "basic",
+            "token_embedders": {
+                "tokens": {
+                    "type": "embedding",
+                    "embedding_dim": 256
+                }
+            }
+        },
+        "target_embedding_dim": 256,
+        "target_namespace": "target_tokens"
+    },
+    "train_data_path": "datasets/TrainingData/subtaskC_training.csv",
+    "validation_data_path": "datasets/TrainingData/subtaskC_test.csv",
+    "trainer": {
+        "cuda_device": -1,
+        "num_epochs": 10,
+        "optimizer": {
+            "type": "adam"
+        },
+        "patience": 10
+    }
+}
