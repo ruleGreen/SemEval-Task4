@@ -20,7 +20,8 @@
       }
     },
     "train_data_path": "datasets/TrainingData/subtaskC_training.csv",
-    "validation_data_path": "datasets/TrainingData/subtaskC_test.csv",
+    "test_data_path": "datasets/TrainingData/subtaskC_test.csv",
+    "evaluate_on_test": true,
     "model": {
       "type": "simple_seq2seq",
       "source_embedder": {

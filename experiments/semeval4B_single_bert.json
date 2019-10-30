@@ -1,0 +1,83 @@
+{
+    "dataset_reader": {
+      "type": "semeval4_b_reader",
+      "token_indexers": {
+        "bert": {
+          "type": "pretrained_transformer",
+          "model_name": "bert-base-cased",
+          "do_lowercase": false
+        }
+      }
+    },
+    "train_data_path": "datasets/taskB_trial_training.csv",
+    "test_data_path": "datasets/taskB_trial_validation.csv",
+    "evaluate_on_test": true,
+    "model": {
+      "type": "b_classifier",
+      "text_field_embedder": {
+          "token_embedders": {
+            "bert": {
+              "type": "bert-pretrained",
+              "pretrained_model": "bert-base-cased",
+              "top_layer_only": true,
+              "requires_grad": false
+            }
+          }
+      },
+      "sent_encoder": {
+        "type": "lstm",
+        "bidirectional": true,
+        "input_size": 768,
+        "hidden_size": 100,
+        "num_layers": 1,
+        "dropout": 0.2
+      },
+      "option_a_encoder": {
+        "type": "lstm",
+        "bidirectional": true,
+        "input_size": 768,
+        "hidden_size": 100,
+        "num_layers": 1,
+        "dropout": 0.2
+      },
+      "option_b_encoder": {
+        "type": "lstm",
+        "bidirectional": true,
+        "input_size": 768,
+        "hidden_size": 100,
+        "num_layers": 1,
+        "dropout": 0.2
+      },
+      "option_c_encoder": {
+        "type": "lstm",
+        "bidirectional": true,
+        "input_size": 768,
+        "hidden_size": 100,
+        "num_layers": 1,
+        "dropout": 0.2
+      },
+      "classifier_feedforward": {
+        "input_dim": 800,
+        "num_layers": 2,
+        "hidden_dims": [400, 3],
+        "activations": ["relu", "linear"],
+        "dropout": [0.2, 0.0]
+      }
+    },
+    "iterator": {
+      "type": "bucket",
+      "sorting_keys": [["sent", "num_tokens"]],
+      "batch_size": 64
+    },
+    "trainer": {
+      "num_epochs": 10,
+      "patience": 10,
+      "cuda_device": -1,
+      "grad_clipping": 5.0,
+      "validation_metric": "+accuracy",
+      "optimizer": {
+        "type": "adagrad"
+      }
+    }
+  }
+  

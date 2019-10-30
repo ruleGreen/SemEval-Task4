@@ -39,11 +39,11 @@ def readjson(model, task, k):
             config = json.load(f)
         for current in range(1, k + 1):
             train_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_train.csv")
-            validation_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_train.csv") 
+            test_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_test.csv") 
 
             # change data path into config json
             config['train_data_path'] = train_data_path
-            config['validation_data_path'] = validation_data_path
+            config['test_data_path'] = test_data_path
 
             with open(path, 'w') as f:
                 json.dump(config, f)
@@ -56,11 +56,11 @@ def readjson(model, task, k):
             config = json.load(f)
         for current in range(1, k + 1):
             train_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_train.csv")
-            validation_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_train.csv") 
+            test_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_test.csv") 
 
             # change data path into config json
             config['train_data_path'] = train_data_path
-            config['validation_data_path'] = validation_data_path
+            config['test_data_path'] = test_data_path
 
             with open(path, 'w') as f:
                 json.dump(config, f)
@@ -73,11 +73,11 @@ def readjson(model, task, k):
             config = json.load(f)
         for current in range(1, k + 1):
             train_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_train.csv")
-            validation_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_train.csv") 
+            test_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_test.csv") 
 
             # change data path into config json
             config['train_data_path'] = train_data_path
-            config['validation_data_path'] = validation_data_path
+            config['test_data_path'] =  test_data_path
 
             with open(path, 'w') as f:
                 json.dump(config, f)
@@ -107,10 +107,10 @@ def result(model, task, k):
         acc_train, acc_test = [], []
         for current in range(1, k+1):
             path = "tmp/semeval4" + task + "_classifier_output_dir/" + str(current) + "/" + "metrics.json"
-            with open(path, r) as f:
+            with open(path, 'r') as f:
                 per = json.load(f)
             acc_train.append(per['training_accuracy'])
-            acc_test.append(per['validation_accuracy'])
+            acc_test.append(per['test_accuracy'])
         avg_train = sum(acc_train) / len(acc_train)
         avg_test = sum(acc_test) / len(acc_test)
 
@@ -122,10 +122,10 @@ def result(model, task, k):
         acc_train, acc_test = [], []
         for current in range(1, k+1):
             path = "tmp/semeval4" + task + "_single_elmo_output_dir/" + str(current) + "/" + "metrics.json"
-            with open(path, r) as f:
+            with open(path, 'r') as f:
                 per = json.load(f)
             acc_train.append(per['training_accuracy'])
-            acc_test.append(per['validation_accuracy'])
+            acc_test.append(per['test_accuracy'])
         avg_train = sum(acc_train) / len(acc_train)
         avg_test = sum(acc_test) / len(acc_test)
 
@@ -137,10 +137,10 @@ def result(model, task, k):
         acc_train, acc_test = [], []
         for current in range(1, k+1):
             path = "tmp/semeval4" + task + "_elmo_output_dir/" + str(current) + "/" + "metrics.json"
-            with open(path, r) as f:
+            with open(path, 'r') as f:
                 per = json.load(f)
             acc_train.append(per['training_accuracy'])
-            acc_test.append(per['validation_accuracy'])
+            acc_test.append(per['test_accuracy'])
         avg_train = sum(acc_train) / len(acc_train)
         avg_test = sum(acc_test) / len(acc_test)
 
