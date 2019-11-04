@@ -1,0 +1,39 @@
+id,sent0,sent1,label
+1984,a cat hides under a car to shelter from the rain,a cat hides above a car to shelter from the rain,1
+1985,she makes phone calls to communicate with a deaf person,she makes gestures to communicate with a deaf person,0
+1986,Sam was caught cheating on a written examination,Sam was caught writing on a written examination,1
+1987,he wants to lose weight because he is too thin,he wants to lose weight because he is too fat,0
+1988,people go to see a doctor because they fall ill,people go to see a doctor so they fall ill,1
+1989,"if you want to take a shower, you can choose a hotel","if you want to take a shower, you can choose a restaurant",1
+1990,he likes sitting in a car and driving on the desert no purpose,he likes sitting in a car and driving on the lake no purpose,1
+1991,she pours some washing powder to do the laundry,she pours some mud to do the laundry,1
+1992,he reads newspapers at breakfast,he reads bread at breakfast,1
+1993,i take two days off every week,i take eight days off every week,1
+1994,Mary lives in a hotel during a business trip,Mary lives in a hospital during a business trip,1
+1995,she keeps a parrot in a fish tank filled with water,she keeps a tortoise in a fish tank filled with water,0
+1996,she prepares a custom-designed nightgown for the ceremony,she prepares a custom-designed evening dress for the ceremony,0
+1997,people use donkeys to carry heavy loads,people use rabbits to carry heavy loads,1
+1998,he washes his clothes with a magic wand,he washes his clothes with a washing machine,0
+1999,Jim downloads music from the Internet,Jim downloads music from the book,1
+2000,their village was destroyed by a dragon yesterday,their village was destroyed by a tornado yesterday,0
+2001,she writes her letter with a bag,she writes her letter with a pen,0
+2002,he is so hungry that he eats up the whole iceberg,he is so hungry that he eats up the whole hamburger,0
+2003,he is drawing a mountain on a piece of paper,he is climbing a mountain on a piece of paper,1
+2004,banana trees grow in the jungle,banana trees grow in the desert,1
+2005,he lit a candle to give light,he lit some salt to give light,1
+2006,we have lunch in the restaurant,we have lunch in the library,1
+2007,rings protect people from the sun,umbrellas protect people from the sun,0
+2008,Jim wins the Best Actor Award because of his acting skills,Jim wins the Best Singer Award because of his acting skills,1
+2009,the accident happened because Jack drank water before driving,the accident happened because Jack drank alcohol before driving,0
+2010,i pick a leaf from a maple tree,i pick a leaf from a goldfish,1
+2011,i am learning French from my teacher,i am learning French from my cat,1
+2012,India is a country in Europe,Great Britain is a country in Europe,0
+2013,you can ride from America to Japan,you can fly from America to Japan,0
+2014,Bob goes to bed because he feels sleepy,Bob goes to work because he feels sleepy,1
+2015,Ellen kicks the judge hard in order to win,Ellen kicks the ball hard in order to win,0
+2016,the shredder cut a piece of paper into pieces,the shredder cut a cup of water into pieces,1
+2017,she cleans her teeth with toothpaste,she cleans her teeth with shampoo,1
+2018,you can see a dinosaur in the museum,you can see a dinosaur in the zoo,1
+2019,people have to hold onto their hats because of the wind,people have to hold onto their shoes because of the wind,1
+2020,Rebecca wakes up because she takes sleeping pills,Rebecca wakes up because she sets an alarm,0
+2021,people bleed when they feel hot,people sweat when they feel hot,0

@@ -10,8 +10,11 @@ from sklearn.model_selection import KFold,cross_val_score
 
 
 
-def read(task):
-    df = pd.read_csv("datasets/TrainingData/subtask" + task + ".csv")
+def read(task, data):
+    if data == '1':
+        df = pd.read_csv("datasets/TrainingData/subtask" + task + ".csv")
+    elif data == '2':
+        df = pd.read_csv("datasets/TrialData/task" + task + ".csv")
     return df
 
 
@@ -271,12 +274,13 @@ def result(model, task, k):
 
 if __name__ == "__main__":
     #added some parameters
+    data = input("please input the datasets 1 -> trial data 2 -> more data")
     task = input("please input the task(A,B,C): ")
     k = int(input("please input the k value of k fold cross validation: "))
     random = int(input("please input the random seed(integer): "))
 
     # read data
-    df = read(task)
+    df = read(task, data)
     kfold(df, k, random, task)
 
     if task == 'A' or task == 'B':
