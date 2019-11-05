@@ -42,7 +42,8 @@ class Prepossessing:
         answer = pd.read_csv(input_file_path2, header=None, names=["id", "ref1", "ref2", "ref3"])
         merged = features.merge(answer, on="id", how="outer")
         merged.to_csv("./datasets/TrainingData/subtaskC.csv", index=False)
-        self.shuffle("./datasets/TrainingData/subtaskC.csv")
+        # task c can not be shuffle here, maybe later
+        # self.shuffle("./datasets/TrainingData/subtaskC.csv")
         # the split of task c is different from task a and b
         self.splitC("./datasets/TrainingData/subtaskC.csv", self.test_size)
 
@@ -71,16 +72,25 @@ class Prepossessing:
         ref1 = df.loc[:, ['id', 'FalseSent', 'ref1']]
         ref2 = df.loc[:, ['id', 'FalseSent', 'ref2']]
         ref3 = df.loc[:, ['id', 'FalseSent', 'ref3']]
+        print(len(ref1), len(ref2), len(ref3))
         ref1.columns = ['id', 'falsesent', 'ref']
         ref2.columns = ['id', 'falsesent', 'ref']
         ref3.columns = ['id', 'falsesent', 'ref']
-        res = pd.concat([ref1, ref2, ref3], axis = 0)
 
-        train, test = train_test_split(res, test_size=test_size)
-        train.to_csv("datasets/TrainingData/subtaskC_training.csv", columns = ['falsesent', 'ref'], header=False, index=False)
-        test.to_csv("datasets/TrainingData/subtaskC_test.csv", columns = ['falsesent', 'ref'], header=False, index=False)
-        res.to_csv("datasets/TrainingData/subtaskC.csv", index=False)
+        # the process of task C is a little different
+        res = pd.DataFrame()
+        for i in range(len(ref1)):
+            # print(ref1.loc[i])
+            res = res.append(ref1.loc[i, ['id', 'falsesent', 'ref']], ignore_index = True)
+            res = res.append(ref2.loc[i, ['id', 'falsesent', 'ref']], ignore_index = True)
+            res = res.append(ref3.loc[i, ['id', 'falsesent', 'ref']], ignore_index = True)
+        res['id'] = res['id'].astype('int')
+        # print(res.head(5))
 
+        # train, test = train_test_split(res, test_size=test_size)
+        # train.to_csv("datasets/TrainingData/subtaskC_training.csv", columns = ['falsesent', 'ref'], header=False, index=False)
+        # test.to_csv("datasets/TrainingData/subtaskC_test.csv", columns = ['falsesent', 'ref'], header=False, index=False)
+        res.to_csv("datasets/TrainingData/subtaskC_merge.csv", index=False)
         
         
 

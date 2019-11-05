@@ -3,23 +3,24 @@
 
 import os
 import json
+import random
 import numpy as np
 import pandas as pd
-from sklearn import datasets,svm
+from sklearn import datasets, svm
 from sklearn.model_selection import KFold,cross_val_score
 
 
 
 def read(task, data):
     if data == '1':
-        df = pd.read_csv("datasets/TrainingData/subtask" + task + ".csv")
-    elif data == '2':
         df = pd.read_csv("datasets/TrialData/task" + task + ".csv")
+    elif data == '2':
+        df = pd.read_csv("datasets/TrainingData/subtask" + task + ".csv")
     return df
 
 
-def kfold(df, k, random, task):
-    kf = KFold(n_splits = k, shuffle = True, random_state = random)
+def kfold(df, k, rand, task):
+    kf = KFold(n_splits = k, shuffle = True, random_state = rand)
     # build datasets
     current = 0
     for train_index, test_index in kf.split(df):
@@ -30,14 +31,53 @@ def kfold(df, k, random, task):
             os.makedirs(path)
         train = df.iloc[train_index]
         test = df.iloc[test_index]
+        # get validation datasets, and others as test Datasets
+        validation, test = test.iloc[:len(test) // 2], test.iloc[len(test) // 2:]
         # print(train.head(5), test.head(5))
         if task == 'A' or task == 'B':
             train.to_csv(path + "/task_" + task + str(current) + "_train.csv", index = False)
+            validation.to_csv(path + "/task_" + task + str(current) + "_validation.csv", index = False)
             test.to_csv(path +"/task_" + task + str(current) + "_test.csv", index = False)
-        elif task == 'C':
-            train.to_csv(path + "/task_" + task + str(current) + "_train.csv", columns = ['falsesent', 'ref'], header=False, index=False)
-            test.to_csv(path +"/task_" + task + str(current) + "_test.csv", columns = ['falsesent', 'ref'], header=False, index=False)
 
+def k_fold_for_c(data, k, rand):
+    # read data
+    if data == '1':
+        df = pd.read_csv("datasets/TrialData/subtask" + task + "_merge.csv")
+    elif data == '2':
+        df = pd.read_csv("datasets/TrainingData/subtask" + task + "_merge.csv")
+    
+    path = "datasets/k_fold_validation/" + task
+    if not os.path.exists(path):
+            os.makedirs(path)
+
+    for e in range(1, k + 1):
+        # generate random numer between 0 - 9999
+        number = [i for i in range(10000)]
+        slice = random.sample(number, 10000 // k )
+        for i in range(len(slice)):
+            number.remove(slice[i])
+        train = number
+        validation = random.sample(slice, len(slice) // 2)
+        for j in range(len(validation)):
+            slice.remove(validation[j])
+        test = slice
+
+        train_data, test_data, validation_data = df[df['id'].isin(train)], df[df['id'].isin(test)], df[df['id'].isin(validation)]
+        train_data = train_data.sample(n = len(train_data), random_state = rand)
+        test_data = test_data.sample(n = len(test_data), random_state = rand)
+        validation_data = validation_data.sample(n = len(validation_data), random_state = rand)
+
+        # drop id column
+        train_data = train_data.drop(['id'], axis = 1)
+        test_data = test_data.drop(['id'], axis = 1)
+        validation_data = validation_data.drop(['id'], axis = 1)
+
+
+        train_data.to_csv(path + "/task_" + task + str(e) + "_train.csv", header=False, index = False)
+        validation_data.to_csv(path + "/task_" + task + str(e) + "_validation.csv", header=False, index = False)
+        test_data.to_csv(path +"/task_" + task + str(e) + "_test.csv", header=False, index = False)
+    
+    
 
 def readjson(model, task, k):
     if model == 1:
@@ -47,10 +87,12 @@ def readjson(model, task, k):
         for current in range(1, k + 1):
             train_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_train.csv")
             test_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_test.csv") 
+            validation_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_validation.csv") 
 
             # change data path into config json
             config['train_data_path'] = train_data_path
             config['test_data_path'] = test_data_path
+            config['validation_data_path'] = validation_path
 
             with open(path, 'w') as f:
                 json.dump(config, f)
@@ -64,10 +106,12 @@ def readjson(model, task, k):
         for current in range(1, k + 1):
             train_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_train.csv")
             test_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_test.csv") 
+            validation_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_validation.csv") 
 
             # change data path into config json
             config['train_data_path'] = train_data_path
             config['test_data_path'] = test_data_path
+            config['validation_data_path'] = validation_path
 
             with open(path, 'w') as f:
                 json.dump(config, f)
@@ -81,10 +125,12 @@ def readjson(model, task, k):
         for current in range(1, k + 1):
             train_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_train.csv")
             test_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_test.csv") 
+            validation_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_validation.csv") 
 
             # change data path into config json
             config['train_data_path'] = train_data_path
             config['test_data_path'] =  test_data_path
+            config['validation_data_path'] = validation_path
 
             with open(path, 'w') as f:
                 json.dump(config, f)
@@ -98,10 +144,12 @@ def readjson(model, task, k):
         for current in range(1, k + 1):
             train_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_train.csv")
             test_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_test.csv") 
+            validation_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_validation.csv") 
 
             # change data path into config json
             config['train_data_path'] = train_data_path
             config['test_data_path'] =  test_data_path
+            config['validation_data_path'] = validation_path
 
             with open(path, 'w') as f:
                 json.dump(config, f)
@@ -116,10 +164,12 @@ def readjson(model, task, k):
         for current in range(1, k + 1):
             train_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_train.csv")
             test_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_test.csv") 
+            validation_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_validation.csv") 
 
             # change data path into config json
             config['train_data_path'] = train_data_path
             config['test_data_path'] =  test_data_path
+            config['validation_data_path'] = validation_path
 
             with open(path, 'w') as f:
                 json.dump(config, f)
@@ -133,10 +183,12 @@ def readjson(model, task, k):
         for current in range(1, k + 1):
             train_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_train.csv")
             test_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_test.csv") 
+            validation_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_validation.csv") 
 
             # change data path into config json
             config['train_data_path'] = train_data_path
             config['test_data_path'] =  test_data_path
+            config['validation_data_path'] = validation_path
 
             with open(path, 'w') as f:
                 json.dump(config, f)
@@ -277,19 +329,21 @@ if __name__ == "__main__":
     data = input("please input the datasets 1 -> trial data 2 -> more data")
     task = input("please input the task(A,B,C): ")
     k = int(input("please input the k value of k fold cross validation: "))
-    random = int(input("please input the random seed(integer): "))
-
-    # read data
-    df = read(task, data)
-    kfold(df, k, random, task)
+    rand = int(input("please input the random seed(integer): "))
 
     if task == 'A' or task == 'B':
+        # read data
+        df = read(task, data)
+        kfold(df, k, rand, task)
+
         model = int(input("please input the model you want to use: 1 -> single glove 2 -> single elmo 3 -> ensemble: \n \
                 6 -> single bert"))
         readjson(model, task, k)
         result(model, task, k)
     elif task == 'C':
-        model = int(int("please input the model you want to use: 4 -> seq2seq + self-attention 5 -> glove"))
+        k_fold_for_c(data, k, rand)
+
+        model = int(input("please input the model you want to use: 4 -> seq2seq + self-attention 5 -> glove"))
         readjson(model, task, k)
         result(model, task, k)
 
