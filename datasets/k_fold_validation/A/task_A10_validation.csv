@@ -1,0 +1,102 @@
+id,sent0,sent1,label
+805,Keys are usually made of metal,Keys are usually made of plastic,1
+434,Breathing through the nose is healthy,Breathing through the mouse is healthy,1
+656,Music is usually loved by people,Music is usually hated by people,1
+365,He walks faster than the driving car.,He walks more slowly than the driving car,0
+225,She boiled the egg and the egg turned into liquid,She boiled the egg and the egg turned into solid,0
+361,a Man should not play with violent tigers,a Man should play with violent tigers,1
+35,i call my mum with a phone,i call my mum with a drum,1
+405,He took the paper out of the printer and printed it,He put the paper in the printer and printed it,0
+407,People usually eat fresh bread,People usually eat moldy bread,1
+188,I'm thirsty so I drink freshwater,I'm thirsty so I drink seawater,1
+675,People can drink seawater when they are thirsty,People can drink water when they are thirsty,0
+940,she traveled to the Antarctic by air,she traveled to the Antarctic on foot,1
+801,Not all boys like girls on the sexual aspect,All the boys like girls on the sexual aspect,1
+212,Bob plays basketball with his cute dog,Bob plays frisbee with his cute dog,0
+20,my family used to watch TV together after dinner,my family used to watch radio together after dinner,1
+349,I saw a round pizza.,I saw a square pizza.,1
+44,a funeral is a place for mourning,a funeral is a place for laughter,1
+425,most fishes can swim,most cats can swim,1
+1033,the traffic light turned white from red,the traffic light turned green from red,0
+648,the universe is very small,the universe is very large,0
+455,"the bag is too weighty, so I cannot hold it","the bag is too light, so I cannot hold it",0
+125,Tim and Mary got married on January 31st,Tim and Mary got married on February 31st,1
+893,People usually read books when they walk,People usually watch the road when they walk,0
+510,a car is a kind of motor vehicle,a car is a kind of animal,1
+761,elephants are quite little animals,Mice are quite little animals,0
+52,pictures can be kept on films temporarily,pictures can be kept on films eternally,1
+367,I need to eat fruits and vegetables to keep healthy.,eating fruits and vegetables makes me fat,1
+726,people want to have rude neighbors,people want to have friendly neighbors,0
+623,the sky is black in the evening,the sky is blue in the evening,1
+809,In ordinary times we can't see the legendary dragon,In ordinary times we can see the legendary dragon,1
+770,You can use leaves to feed to Sloths,You can use meat to feed to Sloths,1
+32,I am tall so I have an advantage in basketball,I am short so I have an advantage in basketball,1
+297,It is always cold in January in the northern earth,It is always cold in July in the northern earth,1
+876,I can pass the shopping mall easily because it is empty,I can pass the shopping mall easily because it is crowded,1
+462,the food tastes awful so I want to eat it again,the food tastes good so I want to eat it again,0
+768,Time is abstract,Time is specific,1
+82,maid is an important member of a family,mother is an important member of a family,0
+842,People usually knock at the door before entering,People usually don't knock at the door before entering,1
+806,When the house stinks we don't want to clean it,When the house stinks we want to clean it,0
+939,he drinks a cup of oil,he drinks a cup of coffee,0
+122,human beings shake tails to express their happiness,dogs shake tails to express their happiness,0
+133,people must have a passport to travel abroad,people must have a driver's license to travel abroad,1
+636,There is ink in the pen so we can write,There is water in the pen so we can write,1
+563,Men usually use lipstick,Women usually use lipstick,0
+715,the Vegetable salad is junk food,French fries are junk food,0
+988,the apple grew under the tree,the apple grew on the tree,0
+443,Westerners like the number thirteen,Westerners hate the number thirteen,0
+300,people can feel pain,people can only feel happiness,1
+393,Batteries can power a lantern forever,Batteries can power a lantern,0
+690,People shouldn't add gasoline to cars,People can add gasoline to cars,0
+649,car engines can use oil,car engines can use air,1
+98,he climbs up the mountain with the help of a rope,he climbs up the mountain with the help of a ribbon,1
+1012,he felt depressed at the good news,he felt pleased with the good news,0
+256,Society demands reward for criminals,Society demands penalty for criminals,0
+680,Diamonds can't cut glass,Diamonds can cut glass,0
+671,People usually hold umbrellas on cloudy days,People usually hold umbrellas on rainy days,0
+492,The leaves of many trees fall in autumn,Leaves grow on trees forever,1
+1025,the treasure is inherited from his ancestors,the treasure is inherited from his descendants,1
+786,people usually ask a waiter to cook,people usually ask a chef to cook,0
+528,Ears are for listening,Ears are for seeing,1
+905,People usually dry themselves with towels,People usually dry their bodies with plastic,1
+97,Jim practices running on the playground every morning,Jim practices running on the bed every morning,1
+1018,he struggled to make his nightmare come true,he struggled to make his dream come true,0
+839,Iron products are usually sensitive to rain,Iron products are usually not sensitive to rain,1
+919,it is dangerous to swim in the sea,it is safe to swim in the sea,1
+869,People usually drive tanks at sea,People usually drive tanks on land,0
+821,When people encounter robbers they will call the police,When people encounter robbers they will call ambulances,1
+605,Ugly boys are more likely to find girlfriends,Handsome boys are more likely to find girlfriends,0
+610,People who are allergic to potatoes can eat chips,People who are allergic to potatoes can't eat chips,0
+731,He was so smart that he quickly understood the nature of the problem,He was so stupid that he quickly understood the nature of the problem,1
+856,this novel is too thin to finish quickly,this novel is too thick to finish quickly,0
+760,we are good friends so we abuse each other,we are good friends so we help each other,0
+529,I talk to English native speakers to improve my English speaking,I talk to Chinese native speakers to improve my English speaking,1
+752,We should stay away from volcanoes,We should be close to volcanoes,1
+759,you need to fail the exam to get a certification,you need to pass the exam to get a certification,0
+973,my arm hurts and it's very comfortable,my arm hurts and it's very painful,0
+662,We can buy human in the supermarket,We can buy snacks in the supermarket,0
+447,"it is rainy, so we can play football outside","it is sunny, so we can play football outside",0
+475,we hear thunder first in thunderstorm days,we see lightning first in thunderstorm days,0
+608,We can observe a star with a telescope,We can observe a star with a microscope,1
+494,the Fire has many colors,the Fire has only one color,1
+50,beef cooked on the drill tastes delicious,beef cooked on the grill tastes delicious,0
+747,We will be punished for obeying the rules,We will be punished for breaking the rules,0
+479,most plants provide carbon dioxide for the human,most plants provide oxygen for the human,0
+467,there is a blackboard in the front of the classroom,there is a sea in the front of the classroom,1
+325,we can buy fresh fruits and vegetables from a Coffee shop,we can buy fresh fruits and vegetables from a grocer,0
+435,You can't eat sprouted potatoes,you can eat sprouted potatoes,1
+704,If you want to see then you should open your mouth,If you want to see then you should open your eyes,0
+540,we often wear a scarf in the summer,we often wear a scarf in the winter,0
+851,this company makes a lot of money because of its outdated equipment,this company makes a lot of money because of its advanced equipment,0
+943,he squeezed some lemonade from apples,he squeezed some lemonade from lemons,0
+588,Poor sleep can lead to high energy levels,Poor sleep can lead to lethargy,0
+451,"I am tired, so I need to go to work","I am tired, so I need to go to bed",0
+89,there are many fishes in the desert,there are many fishes in the sea,0
+773,I am good at swimming because I have always live by the sea,I am good at swimming because I have always live in the desert,1
+832,it's easy for people without hearts to survive,it's hard for people without hearts to survive,0
+507,when it snows it isn't cold,when it snows it is cold,0
+360,I will cry if my family is dead,I will laugh if my family is dead,1
+763,traveling the world will broaden your horizon,traveling the world will narrow your horizon,1
+219,the solar system is located in Earth,Earth is located in the solar system,0
+486,Goldfish usually sleep with their eyes closed,Goldfish usually sleep with their eyes open,0

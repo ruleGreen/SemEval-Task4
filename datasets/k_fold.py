@@ -2,6 +2,7 @@
 # author: Carrey WANG
 
 import os
+import sys
 import json
 import random
 import numpy as np
@@ -23,16 +24,24 @@ def kfold(df, k, rand, task):
     kf = KFold(n_splits = k, shuffle = True, random_state = rand)
     # build datasets
     current = 0
+    # if there is datasets, then just return
+    # and you need to shuffle first before save to csv
+    path = "datasets/k_fold_validation/" + task
+    if os.path.exists(path):
+        return
     for train_index, test_index in kf.split(df):
         if current < k:
             current += 1
-        path = "datasets/k_fold_validation/" + task
         if not os.path.exists(path):
             os.makedirs(path)
         train = df.iloc[train_index]
         test = df.iloc[test_index]
         # get validation datasets, and others as test Datasets
         validation, test = test.iloc[:len(test) // 2], test.iloc[len(test) // 2:]
+        # shuffle data
+        train = train.sample(n = len(train), random_state = rand)
+        test = test.sample(n = len(test), random_state = rand)
+        validation = validation.sample(n = len(validation), random_state = rand)
         # print(train.head(5), test.head(5))
         if task == 'A' or task == 'B':
             train.to_csv(path + "/task_" + task + str(current) + "_train.csv", index = False)
@@ -42,7 +51,7 @@ def kfold(df, k, rand, task):
 def k_fold_for_c(data, k, rand):
     # read data
     if data == '1':
-        df = pd.read_csv("datasets/TrialData/subtask" + task + "_merge.csv")
+        df = pd.read_csv("datasets/TrialData/task" + task + "_merge.csv")
     elif data == '2':
         df = pd.read_csv("datasets/TrainingData/subtask" + task + "_merge.csv")
     
@@ -62,6 +71,7 @@ def k_fold_for_c(data, k, rand):
             slice.remove(validation[j])
         test = slice
 
+        # shuffle data
         train_data, test_data, validation_data = df[df['id'].isin(train)], df[df['id'].isin(test)], df[df['id'].isin(validation)]
         train_data = train_data.sample(n = len(train_data), random_state = rand)
         test_data = test_data.sample(n = len(test_data), random_state = rand)
@@ -95,7 +105,7 @@ def readjson(model, task, k):
             config['validation_data_path'] = validation_path
 
             with open(path, 'w') as f:
-                json.dump(config, f)
+                json.dump(config, f, indent=4)
 
             # run the model
             run(model, task, current)
@@ -114,7 +124,7 @@ def readjson(model, task, k):
             config['validation_data_path'] = validation_path
 
             with open(path, 'w') as f:
-                json.dump(config, f)
+                json.dump(config, f, indent=4)
 
             # run the model
             run(model, task, current)
@@ -133,7 +143,7 @@ def readjson(model, task, k):
             config['validation_data_path'] = validation_path
 
             with open(path, 'w') as f:
-                json.dump(config, f)
+                json.dump(config, f, indent=4)
 
             # run the model
             run(model, task, current)
@@ -152,7 +162,7 @@ def readjson(model, task, k):
             config['validation_data_path'] = validation_path
 
             with open(path, 'w') as f:
-                json.dump(config, f)
+                json.dump(config, f, indent=4)
 
             # run the model
             run(model, task, current)
@@ -172,7 +182,7 @@ def readjson(model, task, k):
             config['validation_data_path'] = validation_path
 
             with open(path, 'w') as f:
-                json.dump(config, f)
+                json.dump(config, f, indent=4)
 
             # run the model
             run(model, task, current)
@@ -191,7 +201,7 @@ def readjson(model, task, k):
             config['validation_data_path'] = validation_path
 
             with open(path, 'w') as f:
-                json.dump(config, f)
+                json.dump(config, f, indent=4)
 
             # run the model
             run(model, task, current)
@@ -326,24 +336,22 @@ def result(model, task, k):
 
 if __name__ == "__main__":
     #added some parameters
-    data = input("please input the datasets 1 -> trial data 2 -> more data")
-    task = input("please input the task(A,B,C): ")
-    k = int(input("please input the k value of k fold cross validation: "))
-    rand = int(input("please input the random seed(integer): "))
+    print("number of argv", len(sys.argv))
+    print("content of argv", sys.argv)
+    print("+++++++++++++++++++++++++++++++")
+
+    data, task, k, rand, model = sys.argv[1], sys.argv[2], int(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5])
 
     if task == 'A' or task == 'B':
         # read data
         df = read(task, data)
         kfold(df, k, rand, task)
 
-        model = int(input("please input the model you want to use: 1 -> single glove 2 -> single elmo 3 -> ensemble: \n \
-                6 -> single bert"))
         readjson(model, task, k)
         result(model, task, k)
     elif task == 'C':
         k_fold_for_c(data, k, rand)
 
-        model = int(input("please input the model you want to use: 4 -> seq2seq + self-attention 5 -> glove"))
         readjson(model, task, k)
         result(model, task, k)
 

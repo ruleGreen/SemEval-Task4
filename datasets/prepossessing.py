@@ -19,7 +19,7 @@ class Prepossessing:
         elif self.task == 2:
             self.preB("./datasets/TrainingData/subtaskB_data_all.csv", "./datasets/TrainingData/subtaskB_answers_all.csv")
         elif self.task == 3:
-            self.preC("./datasets/TrainingData/subtaskC_data_all.csv", "./datasets/TrainingData/subtaskC_answers_all.csv")
+            self.preC("./datasets/TrialData/taskC_trial_data.csv", "./datasets/TrialData/taskC_trial_references.csv")
 
     def preA(self, input_file_path1, input_file_path2):
         features = pd.read_csv(input_file_path1)
@@ -41,11 +41,11 @@ class Prepossessing:
         features = pd.read_csv(input_file_path1)
         answer = pd.read_csv(input_file_path2, header=None, names=["id", "ref1", "ref2", "ref3"])
         merged = features.merge(answer, on="id", how="outer")
-        merged.to_csv("./datasets/TrainingData/subtaskC.csv", index=False)
+        merged.to_csv("./datasets/TrialData/taskC.csv", index=False)
         # task c can not be shuffle here, maybe later
         # self.shuffle("./datasets/TrainingData/subtaskC.csv")
         # the split of task c is different from task a and b
-        self.splitC("./datasets/TrainingData/subtaskC.csv", self.test_size)
+        self.splitC("./datasets/TrialData/taskC.csv", self.test_size)
 
     def shuffle(self, path):
         # shuffle the datasets with random seed
@@ -90,7 +90,7 @@ class Prepossessing:
         # train, test = train_test_split(res, test_size=test_size)
         # train.to_csv("datasets/TrainingData/subtaskC_training.csv", columns = ['falsesent', 'ref'], header=False, index=False)
         # test.to_csv("datasets/TrainingData/subtaskC_test.csv", columns = ['falsesent', 'ref'], header=False, index=False)
-        res.to_csv("datasets/TrainingData/subtaskC_merge.csv", index=False)
+        res.to_csv("datasets/TrialData/taskC_merge.csv", index=False)
         
         
 

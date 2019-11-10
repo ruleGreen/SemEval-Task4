@@ -1,66 +1,84 @@
 {
     "dataset_reader": {
-      "type": "semeval4_a_reader",
-      "token_indexers": {
-        "elmo": {
-          "type": "elmo_characters"
+        "type": "semeval4_a_reader",
+        "token_indexers": {
+            "elmo": {
+                "type": "elmo_characters"
+            }
         }
-      }
     },
-    "train_data_path": "datasets/taskA_trial_training.csv",
-    "test_data_path": "datasets/taskA_trial_validation.csv",
+    "train_data_path": "datasets/k_fold_validation/A/task_A10_train.csv",
+    "test_data_path": "datasets/k_fold_validation/A/task_A10_test.csv",
     "evaluate_on_test": true,
     "model": {
-      "type": "a_classifier",
-      "text_field_embedder": {
-          "token_embedders": {
-              "elmo":{
-                  "type": "elmo_token_embedder",
-                  "options_file": "https://allennlp.s3.amazonaws.com/models/elmo/2x4096_512_2048cnn_2xhighway/elmo_2x4096_512_2048cnn_2xhighway_options.json",
-                  "weight_file": "https://allennlp.s3.amazonaws.com/models/elmo/2x4096_512_2048cnn_2xhighway/elmo_2x4096_512_2048cnn_2xhighway_weights.hdf5",
-                  "do_layer_norm": false,
-                  "dropout": 0.0
-              }
-          }
-      },
-      "sent0_encoder": {
-        "type": "lstm",
-        "bidirectional": true,
-        "input_size": 1024,
-        "hidden_size": 100,
-        "num_layers": 1,
-        "dropout": 0.2
-      },
-      "sent1_encoder": {
-        "type": "lstm",
-        "bidirectional": true,
-        "input_size": 1024,
-        "hidden_size": 100,
-        "num_layers": 1,
-        "dropout": 0.2
-      },
-      "classifier_feedforward": {
-        "input_dim": 400,
-        "num_layers": 2,
-        "hidden_dims": [200, 2],
-        "activations": ["relu", "linear"],
-        "dropout": [0.2, 0.0]
-      }
+        "type": "a_classifier_2",
+        "text_field_embedder": {
+            "token_embedders": {
+                "elmo": {
+                    "type": "elmo_token_embedder",
+                    "options_file": "https://allennlp.s3.amazonaws.com/models/elmo/2x4096_512_2048cnn_2xhighway/elmo_2x4096_512_2048cnn_2xhighway_options.json",
+                    "weight_file": "https://allennlp.s3.amazonaws.com/models/elmo/2x4096_512_2048cnn_2xhighway/elmo_2x4096_512_2048cnn_2xhighway_weights.hdf5",
+                    "do_layer_norm": false,
+                    "dropout": 0.0
+                }
+            }
+        },
+        "sent0_encoder": {
+            "type": "lstm",
+            "bidirectional": true,
+            "input_size": 1024,
+            "hidden_size": 100,
+            "num_layers": 1,
+            "dropout": 0.3
+        },
+        "sent1_encoder": {
+            "type": "lstm",
+            "bidirectional": true,
+            "input_size": 1024,
+            "hidden_size": 100,
+            "num_layers": 1,
+            "dropout": 0.3
+        },
+        "classifier_feedforward": {
+            "input_dim": 200,
+            "num_layers": 2,
+            "hidden_dims": [
+                200,
+                1
+            ],
+            "activations": [
+                "relu",
+                "linear"
+            ],
+            "dropout": [
+                0.2,
+                0.0
+            ]
+        }
     },
     "iterator": {
-      "type": "bucket",
-      "sorting_keys": [["sent0", "num_tokens"], ["sent1", "num_tokens"]],
-      "batch_size": 64
+        "type": "bucket",
+        "sorting_keys": [
+            [
+                "sent0",
+                "num_tokens"
+            ],
+            [
+                "sent1",
+                "num_tokens"
+            ]
+        ],
+        "batch_size": 64
     },
     "trainer": {
-      "num_epochs": 10,
-      "patience": 10,
-      "cuda_device": 0,
-      "grad_clipping": 5.0,
-      "validation_metric": "+accuracy",
-      "optimizer": {
-        "type": "adagrad"
-      }
-    }
-  }
-  
+        "num_epochs": 10,
+        "patience": 10,
+        "cuda_device": -1,
+        "grad_clipping": 5.0,
+        "validation_metric": "+accuracy",
+        "optimizer": {
+            "type": "adagrad"
+        }
+    },
+    "validation_data_path": "datasets/k_fold_validation/A/task_A10_validation.csv"
+}
