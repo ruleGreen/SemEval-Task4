@@ -31,7 +31,7 @@
             "bidirectional": true,
             "input_size": 1024,
             "hidden_size": 100,
-            "num_layers": 1,
+            "num_layers": 2,
             "dropout": 0.0
         },
         "sent1_encoder": {
@@ -39,7 +39,7 @@
             "bidirectional": true,
             "input_size": 1024,
             "hidden_size": 100,
-            "num_layers": 1,
+            "num_layers": 2,
             "dropout": 0.0
         },
         "classifier_feedforward": {
@@ -74,9 +74,9 @@
         "batch_size": 64
     },
     "trainer": {
-        "num_epochs": 10,
-        "patience": 10,
-        "cuda_device": -1,
+        "num_epochs": 50,
+        "patience": 20,
+        "cuda_device": 1,
         "grad_clipping": 5.0,
         "validation_metric": "+accuracy",
         "optimizer": {

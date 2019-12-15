@@ -24,7 +24,7 @@
   "test_data_path": "datasets/taskA_trial_validation.csv",
   "evaluate_on_test": true,
   "model": {
-    "type": "a_classifier",
+    "type": "a_classifier_2",
     "text_field_embedder": {
         "token_embedders": {
             "tokens": {
@@ -61,7 +61,7 @@
       "bidirectional": true,
       "input_size": 1224,
       "hidden_size": 100,
-      "num_layers": 1,
+      "num_layers": 2,
       "dropout": 0.2
     },
     "sent1_encoder": {
@@ -69,7 +69,7 @@
       "bidirectional": true,
       "input_size": 1224,
       "hidden_size": 100,
-      "num_layers": 1,
+      "num_layers": 2,
       "dropout": 0.2
     },
     "classifier_feedforward": {
@@ -86,9 +86,9 @@
     "batch_size": 64
   },
   "trainer": {
-    "num_epochs": 10,
-    "patience": 10,
-    "cuda_device": 0,
+    "num_epochs": 50,
+    "patience": 20,
+    "cuda_device": 1,
     "grad_clipping": 5.0,
     "validation_metric": "+accuracy",
     "optimizer": {

@@ -13,7 +13,7 @@
     "test_data_path": "datasets/taskB_trial_validation.csv",
     "evaluate_on_test": true,
     "model": {
-      "type": "b_classifier",
+      "type": "b_classifier_2",
       "text_field_embedder": {
           "token_embedders": {
             "bert": {
