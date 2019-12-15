@@ -1,17 +1,17 @@
 {
     "dataset_reader": {
-        "type": "semeval4_b_reader",
+        "type": "semeval4_a_reader",
         "token_indexers": {
             "elmo": {
                 "type": "elmo_characters"
             }
         }
     },
-    "train_data_path": "datasets/k_fold_validation/B/task_B10_train.csv",
-    "test_data_path": "datasets/k_fold_validation/B/task_B10_test.csv",
+    "train_data_path": "datasets/k_fold_validation/A/task_A10_train.csv",
+    "test_data_path": "datasets/k_fold_validation/A/task_A10_test.csv",
     "evaluate_on_test": true,
     "model": {
-        "type": "b_classifier_2",
+        "type": "a_classifier_3",
         "text_field_embedder": {
             "token_embedders": {
                 "elmo": {
@@ -19,47 +19,48 @@
                     "options_file": "https://allennlp.s3.amazonaws.com/models/elmo/2x4096_512_2048cnn_2xhighway/elmo_2x4096_512_2048cnn_2xhighway_options.json",
                     "weight_file": "https://allennlp.s3.amazonaws.com/models/elmo/2x4096_512_2048cnn_2xhighway/elmo_2x4096_512_2048cnn_2xhighway_weights.hdf5",
                     "do_layer_norm": false,
-                    "dropout": 0.0
+                    "dropout": 0.5
                 }
             }
+        },
+        "positional_encoding": {
+            "input_dim": 1024
+        },
+        "multi_head": {
+            "num_heads": 10,
+            "input_dim": 1024,
+            "attention_dim": 300,
+            "values_dim": 100
         },
         "sent_encoder": {
             "type": "lstm",
             "bidirectional": true,
             "input_size": 1024,
             "hidden_size": 100,
-            "num_layers": 1,
-            "dropout": 0.2
+            "num_layers": 2,
+            "dropout": 0.0
         },
-        "option_a_encoder": {
+        "sent0_encoder": {
             "type": "lstm",
             "bidirectional": true,
             "input_size": 1024,
             "hidden_size": 100,
-            "num_layers": 1,
-            "dropout": 0.2
+            "num_layers": 2,
+            "dropout": 0.0
         },
-        "option_b_encoder": {
+        "sent1_encoder": {
             "type": "lstm",
             "bidirectional": true,
             "input_size": 1024,
             "hidden_size": 100,
-            "num_layers": 1,
-            "dropout": 0.2
-        },
-        "option_c_encoder": {
-            "type": "lstm",
-            "bidirectional": true,
-            "input_size": 1024,
-            "hidden_size": 100,
-            "num_layers": 1,
-            "dropout": 0.2
+            "num_layers": 2,
+            "dropout": 0.0
         },
         "classifier_feedforward": {
-            "input_dim": 400,
+            "input_dim": 200,
             "num_layers": 2,
             "hidden_dims": [
-                400,
+                200,
                 1
             ],
             "activations": [
@@ -76,7 +77,11 @@
         "type": "bucket",
         "sorting_keys": [
             [
-                "sent",
+                "sent0",
+                "num_tokens"
+            ],
+            [
+                "sent1",
                 "num_tokens"
             ]
         ],
@@ -84,7 +89,7 @@
     },
     "trainer": {
         "num_epochs": 20,
-        "patience": 20,
+        "patience": 10,
         "cuda_device": -1,
         "grad_clipping": 5.0,
         "validation_metric": "+accuracy",
@@ -92,5 +97,5 @@
             "type": "adagrad"
         }
     },
-    "validation_data_path": "datasets/k_fold_validation/B/task_B10_validation.csv"
+    "validation_data_path": "datasets/k_fold_validation/A/task_A10_validation.csv"
 }

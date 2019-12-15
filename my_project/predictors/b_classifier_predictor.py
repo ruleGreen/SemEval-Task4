@@ -23,3 +23,18 @@ class SemevalClassifierPredictor(Predictor):
         reason2 = json_dict['reason2']
         reason3 = json_dict['reason3']
         return self._dataset_reader.text_to_instance(sent=sent, reason1=reason1, reason2=reason2, reason3=reason3)
+
+    @overrides
+    def load_line(self, line: str) -> JsonDict:
+        splitted_line = line.split(',')
+        res = {}
+        if len(splitted_line) == 6:
+            sent, reason1, reason2, reason3, answer = splitted_line[1:]
+            # print(sent, reason1, reason2, reason3, answer)
+            res['sent'] = sent
+            res['reason1'] = reason1
+            res['reason2'] = reason2
+            res['reason3'] = reason3
+            res['answer'] = answer
+        return res
+            

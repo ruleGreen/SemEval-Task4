@@ -36,8 +36,7 @@ class SenseBClassifier(Model):
         self.loss = loss
 
         self.metrics = {
-            "accuracy": CategoricalAccuracy(),
-            "accuracy3": CategoricalAccuracy(top_k = 3)
+            "accuracy": CategoricalAccuracy()
         }
 
         initializer(self)

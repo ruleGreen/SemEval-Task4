@@ -1,5 +1,6 @@
 ./notebook/*
 ./tmp/*
+./datasets/k_fold_validation/*
 
 **/*.local
 **/*.log

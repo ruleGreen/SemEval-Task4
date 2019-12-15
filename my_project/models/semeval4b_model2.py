@@ -9,6 +9,7 @@ from allennlp.nn import util
 from allennlp.nn import InitializerApplicator, RegularizerApplicator
 from allennlp.data import Vocabulary
 from allennlp.modules import FeedForward, Seq2VecEncoder, TextFieldEmbedder
+from allennlp.modules.seq2seq_encoders.bidirectional_language_model_transformer import PositionalEncoding
 from allennlp.models.model import Model
 from allennlp.training.metrics import CategoricalAccuracy
 
@@ -16,6 +17,7 @@ from allennlp.training.metrics import CategoricalAccuracy
 class SenseBClassifier(Model):
     def __init__(self, vocab: Vocabulary,
                  text_field_embedder: TextFieldEmbedder,
+                 positional_encoding: PositionalEncoding,
                  sent_encoder: Seq2VecEncoder,
                  option_a_encoder: Seq2VecEncoder,
                  option_b_encoder: Seq2VecEncoder,
@@ -27,6 +29,7 @@ class SenseBClassifier(Model):
         super(SenseBClassifier, self).__init__(vocab, regularizer)
 
         self.text_field_embedder = text_field_embedder
+        self.positional_encoding = positional_encoding
         self.num_classes = self.vocab.get_vocab_size("labels")
         self.sent_encoder = sent_encoder
         self.option_a_encoder = option_a_encoder
@@ -36,8 +39,7 @@ class SenseBClassifier(Model):
         self.loss = loss
 
         self.metrics = {
-            "accuracy": CategoricalAccuracy(),
-            "accuracy3": CategoricalAccuracy(top_k = 3)
+            "accuracy": CategoricalAccuracy()
         }
 
         initializer(self)
@@ -67,6 +69,7 @@ class SenseBClassifier(Model):
         logits1 = self.classifier_feedforward(torch.cat([encoded_sent, encoded_option_a], dim=-1))
         logits2 = self.classifier_feedforward(torch.cat([encoded_sent, encoded_option_b], dim=-1))
         logits3 = self.classifier_feedforward(torch.cat([encoded_sent, encoded_option_c], dim=-1))
+
         logits = F.softmax(torch.cat([logits1, logits2, logits3], dim=-1), dim=1)
         output_dict = {'logits': logits}
 

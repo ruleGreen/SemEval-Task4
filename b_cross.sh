@@ -8,7 +8,8 @@ if [ -e datasets/k_fold.py ]; then
   # rand = int(input("please input the random seed(integer): "))
   # model = int(input("please input the model you want to use: 1 -> single glove 2 -> single elmo 3 -> ensemble, 6 -> single bert"))
   # model = int(input("please input the model you want to use: 4 -> seq2seq + self-attention 5 -> glove"))
-  python3 datasets/k_fold.py 1 A 10 2 2
+  # model = 9 # this is for test model 3
+  python3 datasets/k_fold.py 1 B 10 2 2
 else
   echo "Sorry, you do not have k_fold.py file at the datasets directory."
   exit 1
