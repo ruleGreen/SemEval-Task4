@@ -228,7 +228,7 @@ def readjson(model, task, k):
 
 def run(model, task, current):
     if model == 1:
-        command = "allennlp train experiments/" + "semeval4" + task + "_classifier.json -s " + " ./tmp/semeval4" + task + "_classifier_output_dir/" + str(current) + "/" \
+        command = "allennlp train experiments/" + "semeval4" + task + "_glove.json -s " + " ./tmp/semeval4" + task + "_glove_output_dir/" + str(current) + "/" \
                         + " --include-package my_project"
         os.system(command)
     elif model == 2:
@@ -236,7 +236,7 @@ def run(model, task, current):
                         + " --include-package my_project"
         os.system(command)
     elif model == 3:
-        command = "allennlp train experiments/" + "semeval4" + task + "_elmo.json -s " + " ./tmp/semeval4" + task + "_elmo_output_dir/" + str(current) + "/" \
+        command = "allennlp train experiments/" + "semeval4" + task + "_ensemble.json -s " + " ./tmp/semeval4" + task + "_ensemble_output_dir/" + str(current) + "/" \
                         + " --include-package my_project"
         os.system(command)
     elif model == 6:
@@ -262,8 +262,8 @@ def result(model, task, k):
     res = {}
     if model == 1:
         acc_train, acc_test = [], []
-        for current in range(1, k+1):
-            path = "tmp/semeval4" + task + "_classifier_output_dir/" + str(current) + "/" + "metrics.json"
+        for current in range(1, k+1): 
+            path = "tmp/semeval4" + task + "_glove_output_dir/" + str(current) + "/" + "metrics.json"
             with open(path, 'r') as f:
                 per = json.load(f)
             acc_train.append(per['training_accuracy'])
@@ -281,7 +281,7 @@ def result(model, task, k):
         res['max_test_accuracy'] = max_test
         res['min_train_accuracy'] = min_train
         res['min_test_accuracy'] = min_test
-        with open("tmp/semeval4" + task + "_classifier_output_dir/result.json", 'w') as f:
+        with open("tmp/semeval4" + task + "_glove_output_dir/result.json", 'w') as f:
             json.dump(res, f)
     elif model == 2:
         acc_train, acc_test = [], []
@@ -309,7 +309,7 @@ def result(model, task, k):
     elif model == 3:
         acc_train, acc_test = [], []
         for current in range(1, k+1):
-            path = "tmp/semeval4" + task + "_elmo_output_dir/" + str(current) + "/" + "metrics.json"
+            path = "tmp/semeval4" + task + "_ensemble_output_dir/" + str(current) + "/" + "metrics.json"
             with open(path, 'r') as f:
                 per = json.load(f)
             acc_train.append(per['training_accuracy'])
@@ -327,7 +327,7 @@ def result(model, task, k):
         res['max_test_accuracy'] = max_test
         res['min_train_accuracy'] = min_train
         res['min_test_accuracy'] = min_test
-        with open("tmp/semeval4" + task + "_elmo_output_dir/result.json", 'w') as f:
+        with open("tmp/semeval4" + task + "_ensemble_output_dir/result.json", 'w') as f:
             json.dump(res, f)
     elif model == 4:
         loss_train, loss_test, bleu_test = [], [], []
