@@ -31,4 +31,11 @@ class SemevalClassifierPredictor(Predictor):
             res['sent0'] = sent0
             res['sent1'] = sent1
             res['answer'] = label
+        elif len(splitted_line) == 3:
+            sent0, sent1= splitted_line[1:]
+            print("splitted_line", splitted_line)
+            print("sent0", sent0)
+            # print(sent, reason1, reason2, reason3, answer)
+            res['sent0'] = sent0.replace('"','')
+            res['sent1'] = sent1.replace('"','')
         return res

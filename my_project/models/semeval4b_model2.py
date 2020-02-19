@@ -17,7 +17,6 @@ from allennlp.training.metrics import CategoricalAccuracy
 class SenseBClassifier(Model):
     def __init__(self, vocab: Vocabulary,
                  text_field_embedder: TextFieldEmbedder,
-                 positional_encoding: PositionalEncoding,
                  sent_encoder: Seq2VecEncoder,
                  option_a_encoder: Seq2VecEncoder,
                  option_b_encoder: Seq2VecEncoder,
@@ -29,7 +28,7 @@ class SenseBClassifier(Model):
         super(SenseBClassifier, self).__init__(vocab, regularizer)
 
         self.text_field_embedder = text_field_embedder
-        self.positional_encoding = positional_encoding
+        # self.positional_encoding = positional_encoding
         self.num_classes = self.vocab.get_vocab_size("labels")
         self.sent_encoder = sent_encoder
         self.option_a_encoder = option_a_encoder

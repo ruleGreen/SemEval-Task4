@@ -88,14 +88,14 @@
         "batch_size": 64
     },
     "trainer": {
-        "num_epochs": 20,
-        "patience": 10,
-        "cuda_device": -1,
+        "num_epochs": 50,
+        "patience": 20,
+        "cuda_device": 0,
         "grad_clipping": 5.0,
         "validation_metric": "+accuracy",
         "optimizer": {
             "type": "adagrad"
         }
     },
-    "validation_data_path": "datasets/DevData/subtaskA_dev.csv"
+    "validation_data_path": "datasets/k_fold_validation/A/task_A10_validation.csv"
 }

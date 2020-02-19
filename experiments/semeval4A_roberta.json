@@ -1,29 +1,40 @@
 {
 	"dataset_reader": {
-		"type": "semeval4_a_reader"
+		"type": "semeval4_a_reader",
+		"token_indexers": {
+			"bert": {
+				"type": "pretrained_transformer",
+				"model_name": "roberta-base",
+				"do_lowercase": true
+			}
+		}
 	},
-	"train_data_path": "datasets/k_fold_validation/A/task_A5_train.csv",
-	"test_data_path": "datasets/k_fold_validation/A/task_A5_train.csv",
+	"train_data_path": "datasets/k_fold_validation/A/task_A10_train.csv",
+	"test_data_path": "datasets/k_fold_validation/A/task_A10_test.csv",
 	"evaluate_on_test": true,
 	"model": {
 		"type": "a_classifier_2",
 		"text_field_embedder": {
+            "allow_unmatched_keys": true,
+            "embedder_to_indexer_map": {
+                "bert": ["bert", "bert-offsets", "bert-type-ids"]
+            },
 			"token_embedders": {
-				"tokens": {
-					"type": "embedding",
-					"pretrained_file": "https://s3-us-west-2.amazonaws.com/allennlp/datasets/glove/glove.6B.100d.txt.gz",
-					"embedding_dim": 100,
-					"trainable": false
+				"bert": {
+					"type": "pretrained_transformer",
+					"pretrained_model": "roberta-base",
+					"top_layer_only": true,
+					"requires_grad": false
 				}
 			}
 		},
 		"positional_encoding": {
-			"input_dim": 100
+			"input_dim": 768
 		},
 		"sent0_encoder": {
 			"type": "lstm",
 			"bidirectional": true,
-			"input_size": 100,
+			"input_size": 768,
 			"hidden_size": 100,
 			"num_layers": 2,
 			"dropout": 0.3
@@ -31,7 +42,7 @@
 		"sent1_encoder": {
 			"type": "lstm",
 			"bidirectional": true,
-			"input_size": 100,
+			"input_size": 768,
 			"hidden_size": 100,
 			"num_layers": 2,
 			"dropout": 0.3
@@ -39,9 +50,9 @@
 		"classifier_feedforward": {
 			"input_dim": 200,
 			"num_layers": 2,
-			"hidden_dims": [200, 3],
+			"hidden_dims": [200, 2],
 			"activations": ["relu", "linear"],
-			"dropout": [0.2, 0.0]
+			"dropout": [0.3, 0.0]
 		}
 	},
 	"iterator": {
@@ -55,11 +66,12 @@
 	"trainer": {
 		"num_epochs": 50,
 		"patience": 20,
-		"cuda_device": 0,
+		"cuda_device": -1,
 		"grad_clipping": 5.0,
 		"validation_metric": "+accuracy",
 		"optimizer": {
 			"type": "adagrad"
 		}
-	}
+	},
+	"validation_data_path": "datasets/k_fold_validation/A/task_A10_validation.csv"
 }

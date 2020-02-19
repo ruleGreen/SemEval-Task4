@@ -5,11 +5,12 @@ import os
 import sys
 import random
 import pandas as pd
-from sklearn.model_selection import train_test_split
+# from sklearn.model_selection import train_test_split
 
 sys.path.append("./")
 
 class Prepossessing:
+    """
     def __init__(self, task, seed, test_size):
         self.task = task
         self.seed = seed
@@ -20,22 +21,23 @@ class Prepossessing:
             self.preB("./datasets/TrainingData/subtaskB_data_all.csv", "./datasets/TrainingData/subtaskB_answers_all.csv")
         elif self.task == 3:
             self.preC("./datasets/TrialData/taskC_trial_data.csv", "./datasets/TrialData/taskC_trial_references.csv")
+    """
 
     def preA(self, input_file_path1, input_file_path2):
         features = pd.read_csv(input_file_path1)
         answer = pd.read_csv(input_file_path2, header=None, names=["id", "label"])
         merged = features.merge(answer, on="id", how="outer")
-        merged.to_csv("./datasets/TrainingData/subtaskA.csv", index=False)
-        self.shuffle("./datasets/TrainingData/subtaskA.csv")
-        self.splitA("./datasets/TrainingData/subtaskA.csv", self.test_size)
+        merged.to_csv("./datasets/DevData/subtaskA.csv", index=False)
+        # self.shuffle("./datasets/TrainingData/subtaskA.csv")
+        # self.splitA("./datasets/TrainingData/subtaskA.csv", self.test_size)
 
     def preB(self, input_file_path1, input_file_path2):
         features = pd.read_csv(input_file_path1)
         answer = pd.read_csv(input_file_path2, header=None, names=["id", "label"])
         merged = features.merge(answer, on="id", how="outer")
-        merged.to_csv("./datasets/TrainingData/subtaskB.csv", index=False)
-        self.shuffle("./datasets/TrainingData/subtaskB.csv")
-        self.splitB("./datasets/TrainingData/subtaskB.csv", self.test_size)
+        merged.to_csv("./datasets/DevData/subtaskB.csv", index=False)
+        # self.shuffle("./datasets/TrainingData/subtaskB.csv")
+        # self.splitB("./datasets/TrainingData/subtaskB.csv", self.test_size)
 
     def preC(self, input_file_path1, input_file_path2):
         features = pd.read_csv(input_file_path1)
@@ -96,8 +98,13 @@ class Prepossessing:
 
 
 if __name__ == "__main__":
+    """
     task = int(input("Please input datasets of which task you want to prepossessing:"))
     shuffle = int(input("Please input the random seed you want to shuffle data:"))
     seed = float(input("Please input the test_size(percent) you want to split train and test data:"))
     
     reader = Prepossessing(task, shuffle, seed)
+    """
+
+    prep = Prepossessing()
+    prep.preA("./datasets/DevData/subtaskA_dev_data.csv", "./datasets/DevData/subtaskA_gold_answers.csv")

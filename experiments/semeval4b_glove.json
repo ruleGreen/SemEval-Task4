@@ -50,7 +50,7 @@
       "dropout": 0.2
     },
     "classifier_feedforward": {
-      "input_dim": 800,
+      "input_dim": 400,
       "num_layers": 2,
       "hidden_dims": [400, 3],
       "activations": ["relu", "linear"],
@@ -63,9 +63,9 @@
     "batch_size": 64
   },
   "trainer": {
-    "num_epochs": 10,
-    "patience": 10,
-    "cuda_device": 1,
+    "num_epochs": 50,
+    "patience": 20,
+    "cuda_device": 0,
     "grad_clipping": 5.0,
     "validation_metric": "+accuracy",
     "optimizer": {

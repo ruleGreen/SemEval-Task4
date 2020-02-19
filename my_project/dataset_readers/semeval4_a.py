@@ -37,6 +37,7 @@ class SemEvalADatasetReader(DatasetReader):
     @overrides
     def _read(self, file_path: str) -> Iterator[Instance]:
         logger.info("Reading instances from lines in file at: %s", file_path)
+        """
         with open(cached_path(file_path)) as f:
             lines = f.readlines()[1:] # skip the first line
             for line in lines:
@@ -50,6 +51,16 @@ class SemEvalADatasetReader(DatasetReader):
                 elif len(splitted_line) == 4:
                     sent0, sent1, label = splitted_line[1:]
                     yield self.text_to_instance(sent0, sent1, label)
+        """
+        data = pd.read_csv(file_path)
+        for i in range(len(data)):
+            if len(data.columns) == 3:
+                sent0, sent1 = data.iloc[i, 1], data.iloc[i, 2]
+                yield self.text_to_instance(sent0, sent1)
+            elif len(data.columns) == 4:
+                sent0, sent1, label = data.iloc[i, 1], data.iloc[i, 2], data.iloc[i, 3]
+                print("sent0, sent1, label", sent0, sent1, label)
+                yield self.text_to_instance(sent0, sent1, str(label))
                 
     def prepossing(self, file_path1, file_path2, file_path):
         if os.path.exists(file_path):

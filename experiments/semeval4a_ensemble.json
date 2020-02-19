@@ -56,6 +56,9 @@
             }
         }
     },
+    "positional_encoding": {
+      "input_dim": 1224
+    },
     "sent0_encoder": {
       "type": "lstm",
       "bidirectional": true,
@@ -73,7 +76,7 @@
       "dropout": 0.2
     },
     "classifier_feedforward": {
-      "input_dim": 400,
+      "input_dim": 200,
       "num_layers": 2,
       "hidden_dims": [200, 2],
       "activations": ["relu", "linear"],
@@ -88,7 +91,7 @@
   "trainer": {
     "num_epochs": 50,
     "patience": 20,
-    "cuda_device": 1,
+    "cuda_device": 0,
     "grad_clipping": 5.0,
     "validation_metric": "+accuracy",
     "optimizer": {

@@ -28,7 +28,7 @@ class SenseClassifier(Model):
                  classifier_feedforward: FeedForward,
                  loss = torch.nn.CrossEntropyLoss(),
                  initializer: InitializerApplicator = InitializerApplicator(),
-                 regularizer: Optional[RegularizerApplicator] = None) -> None:
+                 regularizer: RegularizerApplicator = RegularizerApplicator()) -> None:
         super(SenseClassifier, self).__init__(vocab, regularizer)
         
         self.text_field_embedder = text_field_embedder

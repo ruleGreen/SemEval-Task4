@@ -2,6 +2,7 @@
 # author Carrey Wang
 
 if [ -e datasets/k_fold.py ]; then
+  # data task k rand model
   # data = input("please input the datasets 1 -> trial data 2 -> more data")
   # task = input("please input the task(A,B,C): ")
   # k = int(input("please input the k value of k fold cross validation: "))
