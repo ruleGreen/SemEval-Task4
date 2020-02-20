@@ -467,7 +467,7 @@ def result(model, task, k):
         with open("tmp/semeval4" + task + "_test_output/result.json", 'w') as f:
             json.dump(res, f)
 
- 
+
 if __name__ == "__main__":
     #added some parameters
     print("number of argv", len(sys.argv))
@@ -475,6 +475,7 @@ if __name__ == "__main__":
     print("+++++++++++++++++++++++++++++++")
 
     data, task, k, rand, model = sys.argv[1], sys.argv[2], int(sys.argv[3]), int(sys.argv[4]), int(sys.argv[5])
+
 
     if task == 'A' or task == 'B':
         # read data

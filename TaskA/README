@@ -1,0 +1,12 @@
+# install python package named simpletransformer
+
+First of all, Install Anaconda or Miniconda Package Manager
+Create a new virtual environment and install packages.
+    conda create -n transformers python pandas tqdm
+    conda activate transformers
+If using cuda:
+    conda install pytorch cudatoolkit=10.1 -c pytorch
+else:
+    conda install pytorch cpuonly -c pytorch
+Install simpletransformers.
+    pip install simpletransformers

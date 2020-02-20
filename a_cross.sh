@@ -10,7 +10,7 @@ if [ -e datasets/k_fold.py ]; then
   # model = int(input("please input the model you want to use: 1 -> single glove 2 -> single elmo 3 -> ensemble, 6 -> single bert"))
   # model = int(input("please input the model you want to use: 4 -> seq2seq + self-attention 5 -> glove"))
   # model = 9 # this is for test model 3
-  python3 datasets/k_fold.py 1 A 10 2 9
+  python3 datasets/k_fold.py 2 A 10 2 9
 else
   echo "Sorry, you do not have k_fold.py file at the datasets directory."
   exit 1
