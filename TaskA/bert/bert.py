@@ -1,9 +1,9 @@
 # preprocess data
 import pandas as pd
 
-train = pd.read_csv("data/subtaskA.csv")
-test = pd.read_csv("data/subtaskA_test_data.csv")
-dev = pd.read_csv("data/subtaskA_dev.csv")
+train = pd.read_csv("../data/subtaskA.csv")
+test = pd.read_csv("../data/subtaskA_test_data.csv")
+dev = pd.read_csv("../data/subtaskA_dev.csv")
 
 train = train.drop(['id'], axis = 1)
 dev = dev.drop(['id'], axis = 1)

@@ -145,7 +145,12 @@ def readjson(model, task, k):
         for current in range(1, k + 1):
             train_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_train.csv")
             test_data_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_test.csv") 
-            validation_path = ("datasets/k_fold_validation/" + task + "/task_" + task + str(current) + "_validation.csv") 
+            if task == 'A':
+                validation_path = ("datasets/DevData/subtaskA_dev.csv")
+            elif task == 'B':
+                validation_path = ("datasets/DevData/subtaskB_dev.csv")
+            elif task == 'C':
+                validation_path = ("datasets/DevData/subtaskC_dev.csv")
 
             # change data path into config json
             config['train_data_path'] = train_data_path
