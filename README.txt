@@ -10,6 +10,7 @@
 
 然后还需要改下试验参数
 有cuda_device epoch等
+如果在gpu跑的话, epoch可能设为100比较好
 
 然后再 sh a_cross.sh 即可
 
