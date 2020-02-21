@@ -18,7 +18,7 @@
 			"token_embedders": {
 				"bert": {
 					"type": "bert-pretrained",
-					"pretrained_model": "bert-base-cased",
+					"pretrained_model": "bert-base-uncased",
 					"top_layer_only": true,
 					"requires_grad": false
 				}
