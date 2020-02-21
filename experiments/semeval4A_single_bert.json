@@ -69,5 +69,5 @@
 			"type": "adagrad"
 		}
 	},
-	"validation_data_path": "datasets/k_fold_validation/A/task_A10_validation.csv"
+	"validation_data_path": "datasets/DevData/subtaskA_dev.csv"
 }
