@@ -66,25 +66,19 @@ def k_fold_for_c(data, k, rand):
         for i in range(len(slice)):
             number.remove(slice[i])
         train = number
-        validation = random.sample(slice, len(slice) // 2)
-        for j in range(len(validation)):
-            slice.remove(validation[j])
         test = slice
 
         # shuffle data
-        train_data, test_data, validation_data = df[df['id'].isin(train)], df[df['id'].isin(test)], df[df['id'].isin(validation)]
+        train_data, test_data = df[df['id'].isin(train)], df[df['id'].isin(test)]
         train_data = train_data.sample(n = len(train_data), random_state = rand)
         test_data = test_data.sample(n = len(test_data), random_state = rand)
-        validation_data = validation_data.sample(n = len(validation_data), random_state = rand)
 
         # drop id column
         train_data = train_data.drop(['id'], axis = 1)
         test_data = test_data.drop(['id'], axis = 1)
-        validation_data = validation_data.drop(['id'], axis = 1)
 
 
         train_data.to_csv(path + "/task_" + task + str(e) + "_train.csv", header=False, index = False)
-        validation_data.to_csv(path + "/task_" + task + str(e) + "_validation.csv", header=False, index = False)
         test_data.to_csv(path +"/task_" + task + str(e) + "_test.csv", header=False, index = False)
     
     
@@ -188,7 +182,7 @@ def readjson(model, task, k):
             run(model, task, current)
     # this is for task C
     elif model == 4:
-        path = "experiments/semeval4" + task + "_generation.json"
+        path = "experiments/semeval4" + task + "_seq2seq.json"
         with open(path, 'r') as f:
             config = json.load(f)
         for current in range(1, k + 1):
@@ -199,7 +193,7 @@ def readjson(model, task, k):
             elif task == 'B':
                 validation_path = ("datasets/DevData/subtaskB_dev.csv")
             elif task == 'C':
-                validation_path = ("datasets/DevData/subtaskC_dev.csv")
+                validation_path = ("datasets/DevData/subtaskC_final_dev.csv")
 
             # change data path into config json
             config['train_data_path'] = train_data_path
@@ -279,7 +273,7 @@ def run(model, task, current):
                         + " --include-package my_project"
         os.system(command)
     elif model == 4:
-        command = "allennlp train experiments/" + "semeval4" + task + "_generation.json -s " + " ./tmp/semeval4" + task + "_generation_output_dir/" + str(current) + "/" \
+        command = "allennlp train experiments/" + "semeval4" + task + "_seq2seq.json -s " + " ./tmp/semeval4" + task + "_generation_output_dir/" + str(current) + "/" \
                         + " --include-package my_project"
         os.system(command)
     elif model == 5:

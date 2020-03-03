@@ -67,9 +67,9 @@
         "optimizer": {
             "type": "adam"
         },
-        "patience": 10,
-        "num_epochs": 10,
-        "cuda_device": -1
+        "patience": 50,
+        "num_epochs": 150,
+        "cuda_device": 0
     },
-    "validation_data_path": "datasets/k_fold_validation/C/task_C10_validation.csv"
+    "validation_data_path": "datasets/DevData/subtaskC_final_dev.csv"
 }

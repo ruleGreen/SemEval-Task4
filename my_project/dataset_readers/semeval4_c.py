@@ -81,12 +81,18 @@ class SemEvalCDatasetReader(DatasetReader):
         with open(cached_path(file_path), "r") as data_file:
             logger.info("Reading instances from lines in file at: %s", file_path)
             for line_num, row in enumerate(csv.reader(data_file, delimiter=self._delimiter)):
+                """
                 if len(row) != 2:
                     raise ConfigurationError(
                         "Invalid line format: %s (line number %d)" % (row, line_num + 1)
                     )
-                source_sequence, target_sequence = row
-                yield self.text_to_instance(source_sequence, target_sequence)
+                """
+                if len(row) == 1:
+                    source_sequence = row[0]
+                    yield self.text_to_instance(source_sequence)
+                elif len(row) == 2:
+                    source_sequence, target_sequence = row
+                    yield self.text_to_instance(source_sequence, target_sequence)
         if self._source_max_tokens and self._source_max_exceeded:
             logger.info(
                 "In %d instances, the source token length exceeded the max limit (%d) and were truncated.",

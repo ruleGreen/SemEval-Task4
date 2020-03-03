@@ -43,11 +43,11 @@ class Prepossessing:
         features = pd.read_csv(input_file_path1)
         answer = pd.read_csv(input_file_path2, header=None, names=["id", "ref1", "ref2", "ref3"])
         merged = features.merge(answer, on="id", how="outer")
-        merged.to_csv("./datasets/TrialData/taskC.csv", index=False)
+        merged.to_csv("./datasets/DevData/subtaskC.csv", index=False)
         # task c can not be shuffle here, maybe later
         # self.shuffle("./datasets/TrainingData/subtaskC.csv")
         # the split of task c is different from task a and b
-        self.splitC("./datasets/TrialData/taskC.csv", self.test_size)
+        # self.splitC("./datasets/TrialData/taskC.csv", self.test_size)
 
     def shuffle(self, path):
         # shuffle the datasets with random seed
@@ -68,7 +68,7 @@ class Prepossessing:
         train.to_csv("datasets/TrainingData/subtaskB_training.csv", index=False)
         test.to_csv("datasets/TrainingData/subtaskB_test.csv", index=False)
 
-    def splitC(self, file_path, test_size):
+    def splitC(self, file_path):
         df = pd.read_csv(file_path)
         # to do dataframe for task c
         ref1 = df.loc[:, ['id', 'FalseSent', 'ref1']]
@@ -84,15 +84,21 @@ class Prepossessing:
         for i in range(len(ref1)):
             # print(ref1.loc[i])
             res = res.append(ref1.loc[i, ['id', 'falsesent', 'ref']], ignore_index = True)
-            res = res.append(ref2.loc[i, ['id', 'falsesent', 'ref']], ignore_index = True)
-            res = res.append(ref3.loc[i, ['id', 'falsesent', 'ref']], ignore_index = True)
+            # res = res.append(ref2.loc[i, ['id', 'falsesent', 'ref']], ignore_index = True)
+            # res = res.append(ref3.loc[i, ['id', 'falsesent', 'ref']], ignore_index = True)
         res['id'] = res['id'].astype('int')
         # print(res.head(5))
 
         # train, test = train_test_split(res, test_size=test_size)
         # train.to_csv("datasets/TrainingData/subtaskC_training.csv", columns = ['falsesent', 'ref'], header=False, index=False)
         # test.to_csv("datasets/TrainingData/subtaskC_test.csv", columns = ['falsesent', 'ref'], header=False, index=False)
-        res.to_csv("datasets/TrialData/taskC_merge.csv", index=False)
+        res.to_csv("datasets/TrainingData/subtaskC_merge.csv", index=False)
+    
+    def generateDevForC(self, file_path):
+        df = pd.read_csv(file_path)
+        df = df.drop(['id'], axis = 1)
+        df = df.sample(n = len(df), random_state = 2)
+        df.to_csv("datasets/DevData/subtaskC_final_dev.csv", header=False, index = False)
         
         
 
@@ -106,5 +112,10 @@ if __name__ == "__main__":
     reader = Prepossessing(task, shuffle, seed)
     """
 
+    # prep = Prepossessing()
+    # prep.preA("./datasets/DevData/subtaskA_dev_data.csv", "./datasets/DevData/subtaskA_gold_answers.csv")
+
     prep = Prepossessing()
-    prep.preA("./datasets/DevData/subtaskA_dev_data.csv", "./datasets/DevData/subtaskA_gold_answers.csv")
+    # prep.preC("./datasets/DevData/subtaskC_dev_data.csv", "./datasets/DevData/subtaskC_gold_answers.csv")
+    prep.splitC("./datasets/TrainingData/subtaskC.csv")
+    # prep.generateDevForC("./datasets/DevData/subtaskC_dev_merge.csv")
